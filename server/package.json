@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/ws": "^8.18.0",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.5.0"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "@prisma/adapter-neon": "^6.5.0",
+    "@prisma/client": "^6.5.0",
+    "express": "^4.21.2",
+    "pg": "^8.14.1",
+    "ws": "^8.18.1"
+  }
+}
