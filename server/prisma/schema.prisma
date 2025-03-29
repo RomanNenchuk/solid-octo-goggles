@@ -12,3 +12,66 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id     String    @id @default(uuid())
+  name   String
+  email  String    @unique
+  movies Booking[]
+}
+
+model Movie {
+  id          String     @id @default(uuid())
+  cover       String
+  name        String
+  description String
+  genre       String
+  showTime    ShowTime[]
+}
+
+model Hall {
+  id         String     @id @default(uuid())
+  name       String
+  totalSeats Int
+  showTime   ShowTime[]
+  Seat       Seat[]
+}
+
+// Сеанс (потрібен, щоб той самий фільм можна було показувати декілька разів і в різних кінозалах)
+model ShowTime {
+  id        String    @id @default(uuid())
+  startTime DateTime
+  movie     Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId   String
+  hall      Hall      @relation(fields: [hallId], references: [id], onDelete: Cascade)
+  hallId    String
+  booking   Booking[]
+}
+
+model Booking {
+  id         String       @id @default(uuid())
+  userId     String
+  addedAt    DateTime     @default(now())
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  showTime   ShowTime     @relation(fields: [showTimeId], references: [id])
+  showTimeId String
+  BookedSeat BookedSeat[]
+}
+
+model Seat {
+  id         String       @id @default(uuid())
+  row        Int
+  column     Int
+  hall       Hall         @relation(fields: [hallId], references: [id])
+  hallId     String
+  BookedSeat BookedSeat[]
+}
+
+// асоціативна таблиця, щоб за раз можна було бронювати декілька місць
+model BookedSeat {
+  id        String  @id @default(uuid())
+  booking   Booking @relation(fields: [bookingId], references: [id])
+  bookingId String
+  seat      Seat    @relation(fields: [seatId], references: [id])
+  seatId    String
+}
