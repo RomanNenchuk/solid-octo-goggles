@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { ClipLoader } from "react-spinners";
 import MovieCard from "./MovieCard";
 
 export type Movie = {
@@ -12,38 +11,41 @@ export type Movie = {
 };
 
 type MovieListProps = {
+  movies: Movie[];
+  isLoading: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
+  fetchNextPage: () => void;
   className?: string;
 };
 
-export default function MovieList({ className }: MovieListProps) {
-  const [movieList, setMovieList] = useState<Movie[]>([]);
-  const VITE_API_URL = import.meta.env.VITE_API_URL;
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${VITE_API_URL}/movies`);
-        console.log(`${VITE_API_URL}/movies`, response);
-        setMovieList(response.data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchMovies();
-  }, []);
-
-  if (loading) return <div>Not Found</div>;
+export default function MovieList({
+  movies,
+  isLoading,
+  isFetchingNextPage,
+  hasNextPage = false,
+  fetchNextPage,
+  className,
+}: MovieListProps) {
+  if (isLoading)
+    return (
+      <div className="text-center mt-10">
+        {<ClipLoader color="#36d7b7" size={60} />}
+      </div>
+    );
 
   return (
-    <ul className={`flex flex-wrap gap-y-8 gap-x-4 ${className}`}>
-      {movieList.map(movie => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </ul>
+    <div>
+      <ul className={`flex flex-wrap gap-y-8 gap-x-4 ${className}`}>
+        {movies.map(movie => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </ul>
+      {hasNextPage && (
+        <button onClick={fetchNextPage} disabled={isFetchingNextPage}>
+          {isFetchingNextPage ? "Завантажується..." : "Завантажити ще"}
+        </button>
+      )}
+    </div>
   );
 }
