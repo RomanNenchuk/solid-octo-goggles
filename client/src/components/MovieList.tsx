@@ -1,5 +1,5 @@
-import { ClipLoader } from "react-spinners";
 import MovieCard from "./MovieCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 export type Movie = {
   id: string;
@@ -27,12 +27,7 @@ export default function MovieList({
   fetchNextPage,
   className,
 }: MovieListProps) {
-  if (isLoading)
-    return (
-      <div className="text-center mt-10">
-        {<ClipLoader color="#36d7b7" size={60} />}
-      </div>
-    );
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
@@ -41,6 +36,7 @@ export default function MovieList({
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </ul>
+      {isFetchingNextPage && <LoadingSpinner />}
       {hasNextPage && (
         <button onClick={fetchNextPage} disabled={isFetchingNextPage}>
           {isFetchingNextPage ? "Завантажується..." : "Завантажити ще"}
