@@ -42,13 +42,15 @@ export default function MovieList({
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div>
-      <ul className={`flex flex-wrap gap-y-8 justify-between ${className}`}>
+    <>
+      <ul
+        className={`flex flex-wrap gap-y-8 justify-between p-[34px] lg:gap-x-8 ${className}`}
+      >
         {movies.map(movie => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </ul>
       {isFetchingNextPage && <LoadingSpinner />}
-    </div>
+    </>
   );
 }

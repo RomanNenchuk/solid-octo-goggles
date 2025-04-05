@@ -19,7 +19,9 @@ export default function MovieCardTextInfo({
 }: MovieCardTextInfoProps) {
   return (
     <div className={`${className} flex flex-col gap-4`}>
-      <h3 className="text-lg leading-5 font-bold">{name}</h3>
+      <h3 className="text-lg leading-5 font-bold  break-all hidden lg:block">
+        {name}
+      </h3>
       {genre && <div>{genre}</div>}
       {showTimes?.length ? <ShowTimeList showTimes={showTimes} /> : null}
       {description && <div>{description}</div>}

@@ -1,13 +1,22 @@
 import { Movie } from "./MovieList";
 
-type MovieCardCoverProps = Pick<Movie, "cover"> & {
+type MovieCardCoverProps = Pick<Movie, "cover" | "name"> & {
   className?: string;
 };
 
-export default function MovieCardCover({ cover }: MovieCardCoverProps) {
+export default function MovieCardCover({ cover, name }: MovieCardCoverProps) {
   return (
-    <div className="h-[230px] w-[140px] overflow-hidden rounded-sm">
-      <img src={cover} alt="Cover" className="w-full h-full object-cover" />
+    <div className="relative">
+      <div className="w-full h-[350px] sm:h-[300px] lg:w-[60%] lg:h-[300px] lg:w-[200px] xl:h-[224px] xl:w-[140px] overflow-hidden rounded-lg flex-shrink-0">
+        <img
+          src={cover}
+          alt={name}
+          className="w-full h-full min-w-full object-cover object-top"
+        />
+      </div>
+      <h3 className="bg-[#00000080] w-full p-2 text-lg leading-5 font-bold absolute bottom-0 left-0 break-all block lg:hidden">
+        {name}
+      </h3>
     </div>
   );
 }
