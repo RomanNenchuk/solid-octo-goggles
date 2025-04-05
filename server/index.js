@@ -18,11 +18,37 @@ app.use(
 );
 app.use(express.json());
 
-// Маршрут для API
 app.get("/api/movies", async (req, res) => {
+  const { query, page = 1, limit = 10 } = req.query;
+  const pageNumber = parseInt(page);
+  const itemsPerPage = parseInt(limit);
+
+  const whereCondition = query
+    ? {
+        name: {
+          contains: query,
+          mode: "insensitive",
+        },
+      }
+    : {};
+
   try {
     const response = await prisma.movie.findMany({
-      select: { id: true, name: true, cover: true },
+      select: {
+        id: true,
+        name: true,
+        cover: true,
+        showTimes: {
+          select: {
+            id: true,
+            startTime: true,
+            hall: { select: { id: true, name: true, totalSeats: true } },
+          },
+        },
+      },
+      where: whereCondition,
+      skip: (pageNumber - 1) * itemsPerPage,
+      take: itemsPerPage,
     });
     res.send(response);
   } catch (error) {

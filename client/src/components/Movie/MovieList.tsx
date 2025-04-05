@@ -1,5 +1,5 @@
 import MovieCard from "./MovieCard";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
 
 export type Movie = {
   id: string;
@@ -7,7 +7,19 @@ export type Movie = {
   name: string;
   description: string;
   genre: string;
-  date: string;
+  showTimes?: ShowTime[];
+};
+
+export type ShowTime = {
+  id: string;
+  startTime: Date | string;
+  hall: Hall;
+};
+
+type Hall = {
+  id: string;
+  name: string;
+  totalSeats: number;
 };
 
 type MovieListProps = {
@@ -23,25 +35,20 @@ export default function MovieList({
   movies,
   isLoading,
   isFetchingNextPage,
-  hasNextPage = false,
-  fetchNextPage,
+  // hasNextPage = false,
+  // fetchNextPage,
   className,
 }: MovieListProps) {
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
-      <ul className={`flex flex-wrap gap-y-8 gap-x-4 ${className}`}>
+      <ul className={`flex flex-wrap gap-y-8 justify-between ${className}`}>
         {movies.map(movie => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </ul>
       {isFetchingNextPage && <LoadingSpinner />}
-      {hasNextPage && (
-        <button onClick={fetchNextPage} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? "Завантажується..." : "Завантажити ще"}
-        </button>
-      )}
     </div>
   );
 }

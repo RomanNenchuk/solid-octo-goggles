@@ -1,8 +1,9 @@
 import { Movie } from "./MovieList";
+import ShowTimeList from "./ShowTimeList";
 
 type MovieCardTextInfoProps = Pick<
   Movie,
-  "name" | "description" | "genre" | "date"
+  "name" | "description" | "genre" | "showTimes"
 > & {
   description?: string;
   genre?: string;
@@ -12,15 +13,15 @@ type MovieCardTextInfoProps = Pick<
 export default function MovieCardTextInfo({
   name,
   genre,
-  date,
+  showTimes,
   description,
   className,
 }: MovieCardTextInfoProps) {
   return (
-    <div className={className}>
+    <div className={`${className} flex flex-col gap-4`}>
       <h3 className="text-lg leading-5 font-bold">{name}</h3>
       {genre && <div>{genre}</div>}
-      {date && <div>{date}</div>}
+      {showTimes?.length ? <ShowTimeList showTimes={showTimes} /> : null}
       {description && <div>{description}</div>}
     </div>
   );

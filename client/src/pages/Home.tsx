@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import MovieList from "../components/MovieList";
+import MovieList from "../components/Movie/MovieList";
 import QueryInput from "../components/QueryInput";
 import { fetchMovies } from "../services/movies";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -49,7 +49,7 @@ export default function Home() {
         isFetchingNextPage={isFetchingNextPage}
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}
-        className="py-4 px-8 max-w-[1302px] mx-auto"
+        className="py-4 max-w-[1302px] mx-auto"
       />
       <div ref={observerRef} className="h-1"></div>
     </>

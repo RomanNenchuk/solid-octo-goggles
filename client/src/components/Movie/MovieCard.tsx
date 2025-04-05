@@ -8,13 +8,13 @@ type MovieCardProps = {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
-    <div className="w-[calc(33%-8px)] flex gap-4">
+    <div className="w-[calc(33%-32px)] flex gap-4">
       <MovieCardCover cover={movie.cover} />
 
       <MovieCardTextInfo
         name={movie.name}
         genre={movie.genre}
-        date={movie.date}
+        showTimes={movie.showTimes}
         description={movie.description}
         className="max-w-[60%]"
       />
