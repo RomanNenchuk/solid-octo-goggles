@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import MovieList from "../components/Movie/MovieList";
-import QueryInput from "../components/QueryInput";
 import { fetchMovies } from "../services/movies";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useDebounce } from "use-debounce";
+import { useSearch } from "../contexts/SearchContext";
 
 export default function Home() {
-  const [query, setQuery] = useState("");
-  const [debouncedQuery] = useDebounce(query, 300);
+  const { debouncedQuery } = useSearch();
   const observerRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
@@ -42,14 +40,13 @@ export default function Home() {
 
   return (
     <>
-      <QueryInput query={query} setQuery={setQuery} />
       <MovieList
         movies={allMovies}
         isLoading={isLoading}
         isFetchingNextPage={isFetchingNextPage}
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}
-        className="py-4 max-w-[1302px] mx-auto"
+        className="py-8 max-w-[1302px] mx-auto"
       />
       <div ref={observerRef} className="h-1"></div>
     </>

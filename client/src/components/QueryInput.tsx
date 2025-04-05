@@ -7,7 +7,7 @@ type QueryInputProps = {
 
 export default function QueryInput({ query, setQuery }: QueryInputProps) {
   return (
-    <div className="relative max-w-md mx-auto mb-4">
+    <div className="relative max-w-md mx-auto">
       <input
         type="text"
         className="text-base text-black bg-white rounded-md border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 py-2 px-4 w-full outline-none transition-all duration-200 placeholder-gray-400"
