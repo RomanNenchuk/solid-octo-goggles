@@ -35,8 +35,6 @@ export default function MovieList({
   movies,
   isLoading,
   isFetchingNextPage,
-  // hasNextPage = false,
-  // fetchNextPage,
   className,
 }: MovieListProps) {
   if (isLoading) return <LoadingSpinner />;
@@ -46,9 +44,13 @@ export default function MovieList({
       <ul
         className={`flex flex-wrap gap-y-8 justify-between p-[34px] lg:gap-x-8 ${className}`}
       >
-        {movies.map(movie => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+        {movies.length > 0 ? (
+          movies.map(movie => <MovieCard key={movie.id} movie={movie} />)
+        ) : (
+          <h3 className="text-lg leading-5 font-bold mx-auto mt-8">
+            За Вашим запитом фільмів не знайдено
+          </h3>
+        )}
       </ul>
       {isFetchingNextPage && <LoadingSpinner />}
     </>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Movie } from "../components/Movie/MovieList";
+import { Movie } from "../components/MovieList/MovieList";
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`,

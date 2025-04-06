@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import cinemaIcon from "../assets/cinema.svg";
-import menuIcon from "../assets/menu.svg";
+import cinemaIcon from "../../assets/cinema.svg";
+import menuIcon from "../../assets/menu.svg";
 
 type HeaderControlsProps = {
   setIsNavigationMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +20,7 @@ export default function HeaderControls({
   const toggleMenu = () => setIsNavigationMenuOpen(prev => !prev);
 
   return (
-    <div className={`flex gap-8 ${className}`}>
+    <div className={`flex gap-4 lg:gap-8 ${className}`}>
       <img
         src={menuIcon}
         alt="Menu"

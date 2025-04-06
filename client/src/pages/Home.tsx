@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import MovieList from "../components/Movie/MovieList";
+import MovieList from "../components/MovieList/MovieList";
 import { fetchMovies } from "../services/movies";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearch } from "../contexts/SearchContext";
