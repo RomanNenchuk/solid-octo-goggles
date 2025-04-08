@@ -39,13 +39,14 @@ model Hall {
 
 // Сеанс (потрібен, щоб той самий фільм можна було показувати декілька разів і в різних кінозалах)
 model ShowTime {
-  id        String    @id @default(uuid())
-  startTime DateTime
-  movie     Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  movieId   String
-  hall      Hall      @relation(fields: [hallId], references: [id], onDelete: Cascade)
-  hallId    String
-  bookings  Booking[]
+  id         String       @id @default(uuid())
+  startTime  DateTime
+  movie      Movie        @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId    String
+  hall       Hall         @relation(fields: [hallId], references: [id], onDelete: Cascade)
+  hallId     String
+  bookings   Booking[]
+  BookedSeat BookedSeat[]
 }
 
 model Booking {
@@ -69,9 +70,13 @@ model Seat {
 
 // асоціативна таблиця, щоб за раз можна було бронювати декілька місць
 model BookedSeat {
-  id        String  @id @default(uuid())
-  booking   Booking @relation(fields: [bookingId], references: [id])
-  bookingId String
-  seat      Seat    @relation(fields: [seatId], references: [id])
-  seatId    String
+  id         String   @id @default(uuid())
+  booking    Booking  @relation(fields: [bookingId], references: [id])
+  bookingId  String
+  seat       Seat     @relation(fields: [seatId], references: [id])
+  seatId     String
+  showTime   ShowTime @relation(fields: [showTimeId], references: [id])
+  showTimeId String
+
+  @@unique([seatId, showTimeId]) // гарантую унікальність місця для сеансу
 }

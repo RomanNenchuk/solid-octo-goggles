@@ -7,6 +7,7 @@ import {
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import { SearchProvider } from "./contexts/SearchContext";
+import Booking from "./pages/Booking";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route element={<Header />}>
             <Route path="/" element={<Home />} />
+            <Route path="/booking/:id" element={<Booking />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

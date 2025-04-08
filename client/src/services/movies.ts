@@ -1,9 +1,5 @@
-import axios from "axios";
+import { makeRequest } from "./makeRequest";
 import { Movie } from "../components/MovieList/MovieList";
-
-const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}`,
-});
 
 type FetchMoviesProps = {
   query: string;
@@ -20,11 +16,7 @@ export async function fetchMovies({
   query,
   page,
 }: FetchMoviesProps): Promise<FetchMoviesResponse> {
-  const response = await api("/movies", { params: { query, page } });
-  const movies = response.data;
-  // console.log(
-  //   movies.map(movie => ({ name: movie.name, showTime: movie.showTime }))
-  // );
+  const movies = await makeRequest("/movies", { params: { query, page } });
 
   return {
     movies,
