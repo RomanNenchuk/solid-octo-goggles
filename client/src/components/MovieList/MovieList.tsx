@@ -2,7 +2,7 @@ import MovieCard from "./MovieCard";
 import LoadingSpinner from "../LoadingSpinner";
 
 export type MovieType = {
-  id: string;
+  id?: string;
   cover: string;
   name: string;
   description: string;

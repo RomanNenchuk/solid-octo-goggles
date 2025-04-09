@@ -27,8 +27,11 @@ export async function fetchMovies({
 }
 
 export async function fetchMovie(
-  id: Readonly<Params<string>>
+  movieId: Readonly<Params<string>>
 ): Promise<MovieType> {
+  const { id } = movieId;
+  console.log(movieId);
+
   const movie = await makeRequest(`/movies/${id}`);
   return movie;
 }

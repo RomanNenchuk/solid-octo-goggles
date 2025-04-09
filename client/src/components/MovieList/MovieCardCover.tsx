@@ -1,12 +1,17 @@
-import { Movie } from "./MovieList";
+import { MovieType } from "./MovieList";
 
-type MovieCardCoverProps = Pick<Movie, "cover" | "name"> & {
+type MovieCardCoverProps = Pick<MovieType, "cover" | "name"> & {
+  onClick: VoidFunction;
   className?: string;
 };
 
-export default function MovieCardCover({ cover, name }: MovieCardCoverProps) {
+export default function MovieCardCover({
+  cover,
+  name,
+  onClick,
+}: MovieCardCoverProps) {
   return (
-    <div className="relative">
+    <div className="relative cursor-pointer" onClick={onClick}>
       <div className="w-full h-[350px] sm:h-[300px] lg:w-[60%] lg:h-[300px] lg:w-[200px] xl:h-[224px] xl:w-[140px] overflow-hidden rounded-lg flex-shrink-0">
         <img
           src={cover}

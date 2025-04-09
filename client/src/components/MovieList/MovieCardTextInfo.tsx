@@ -1,12 +1,13 @@
-import { Movie } from "./MovieList";
+import { MovieType } from "./MovieList";
 import ShowTimeList from "./ShowTimeList";
 
 type MovieCardTextInfoProps = Pick<
-  Movie,
+  MovieType,
   "name" | "description" | "genre" | "showTimes"
 > & {
   description?: string;
   genre?: string;
+  onClick: VoidFunction;
   className?: string;
 };
 
@@ -15,11 +16,15 @@ export default function MovieCardTextInfo({
   genre,
   showTimes,
   description,
+  onClick,
   className,
 }: MovieCardTextInfoProps) {
   return (
     <div className={`${className} flex flex-col gap-4`}>
-      <h3 className="text-lg leading-5 font-bold  break-all hidden lg:block">
+      <h3
+        className="text-lg leading-5 font-bold  break-all hidden lg:block cursor-pointer"
+        onClick={onClick}
+      >
         {name}
       </h3>
       {genre && <div>{genre}</div>}

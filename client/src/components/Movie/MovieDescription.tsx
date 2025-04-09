@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { MovieType } from "../MovieList/MovieList";
 import { fetchMovie } from "../../services/movies";
 import LoadingSpinner from "../LoadingSpinner";
+import MovieCard from "../MovieList/MovieCard";
 
 export default function MovieDescription() {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,9 @@ export default function MovieDescription() {
     async function getMovieDescription() {
       try {
         setLoading(true);
-        const movieInfo = await fetchMovie({ movieId });
+        const movieInfo = await fetchMovie({ id: movieId });
+        console.log(movieInfo);
+
         setMovie(movieInfo);
       } catch (error) {
         console.error(error);
@@ -23,9 +26,15 @@ export default function MovieDescription() {
         setLoading(false);
       }
     }
+
+    getMovieDescription();
   }, [movieId]);
 
   if (loading || !movie) return <LoadingSpinner />;
-
-  return <div></div>;
+  const { id, ...otherInfo } = movie;
+  return (
+    <div>
+      <MovieCard movie={otherInfo} />
+    </div>
+  );
 }

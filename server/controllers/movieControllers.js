@@ -2,7 +2,6 @@ import { prisma } from "../index.js";
 
 export async function getShowTimeInfo(req, res) {
   const id = req.params.id;
-  console.log(id);
   try {
     const showTime = await prisma.showTime.findUnique({
       where: { id },
@@ -54,46 +53,6 @@ export async function getShowTimeInfo(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-// export async function getShowTimeInfo(req, res) {
-//   const id = req.params.id;
-//   console.log(id);
-//   try {
-//     const response = await prisma.hall.findFirst({
-//       select: {
-//         name: true,
-//         totalSeats: true,
-//         showTimes: {
-//           where: { id },
-//           select: {
-//             id: true,
-//             bookedSeats: {
-//               select: {
-//                 seat: {
-//                   select: { id: true, row: true, column: true },
-//                 },
-//               },
-//             },
-//           },
-//         },
-//       },
-//     });
-
-//     const processedResponse = {
-//       name: response.name,
-//       totalSeats: response.totalSeats,
-//       bookedSeats: response.showTimes[0]?.bookedSeats?.map(
-//         bookedSeat => bookedSeat.seat
-//       ),
-//     };
-//     console.log(response);
-//     console.log(processedResponse);
-
-//     res.send(processedResponse);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// }
 
 export async function getMovies(req, res) {
   const { query, page = 1, limit = 10 } = req.query;
@@ -128,6 +87,21 @@ export async function getMovies(req, res) {
       take: itemsPerPage,
     });
     res.send(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function getMovieDescription(req, res) {
+  const id = req.params.id;
+  try {
+    const movie = await prisma.movie.findUnique({
+      where: { id },
+    });
+    if (!movie) return res.status(404).json({ message: "Movie not found" });
+
+    res.send(movie);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
