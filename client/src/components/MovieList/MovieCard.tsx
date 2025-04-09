@@ -1,9 +1,9 @@
-import { Movie } from "./MovieList";
+import { MovieType } from "./MovieList";
 import MovieCardTextInfo from "./MovieCardTextInfo";
 import MovieCardCover from "./MovieCardCover";
 
 type MovieCardProps = {
-  movie: Movie;
+  movie: MovieType;
 };
 
 export default function MovieCard({ movie }: MovieCardProps) {

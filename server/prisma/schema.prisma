@@ -39,14 +39,14 @@ model Hall {
 
 // Сеанс (потрібен, щоб той самий фільм можна було показувати декілька разів і в різних кінозалах)
 model ShowTime {
-  id         String       @id @default(uuid())
-  startTime  DateTime
-  movie      Movie        @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  movieId    String
-  hall       Hall         @relation(fields: [hallId], references: [id], onDelete: Cascade)
-  hallId     String
-  bookings   Booking[]
-  BookedSeat BookedSeat[]
+  id          String       @id @default(uuid())
+  startTime   DateTime
+  movie       Movie        @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId     String
+  hall        Hall         @relation(fields: [hallId], references: [id], onDelete: Cascade)
+  hallId      String
+  bookings    Booking[]
+  bookedSeats BookedSeat[]
 }
 
 model Booking {

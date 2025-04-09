@@ -1,7 +1,7 @@
 import MovieCard from "./MovieCard";
 import LoadingSpinner from "../LoadingSpinner";
 
-export type Movie = {
+export type MovieType = {
   id: string;
   cover: string;
   name: string;
@@ -23,7 +23,7 @@ type Hall = {
 };
 
 type MovieListProps = {
-  movies: Movie[];
+  movies: MovieType[];
   isLoading: boolean;
   isFetchingNextPage: boolean;
   hasNextPage: boolean;

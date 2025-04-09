@@ -15,8 +15,6 @@ export default function Sidebar({
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      console.log(e.target);
-
       if (sideBarRef?.current && !sideBarRef.current.contains(e.target as Node))
         setIsNavigationMenuOpen(false);
     };

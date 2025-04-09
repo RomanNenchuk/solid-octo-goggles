@@ -8,6 +8,7 @@ import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import { SearchProvider } from "./contexts/SearchContext";
 import Booking from "./pages/Booking";
+import Movie from "./pages/Movie";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Routes>
           <Route element={<Header />}>
             <Route path="/" element={<Home />} />
-            <Route path="/booking/:id" element={<Booking />} />
+            <Route path="/bookings/:id" element={<Booking />} />
+            <Route path="/movies/:id" element={<Movie />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

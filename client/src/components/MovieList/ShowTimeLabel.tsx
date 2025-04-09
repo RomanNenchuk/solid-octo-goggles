@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ShowTime } from "./MovieList";
 
 type ShowTimeLabelProps = {
@@ -17,8 +18,10 @@ export default function ShowTimeLabel({ showTime }: ShowTimeLabelProps) {
   });
 
   return (
-    <span className="p-1 text-[#57FFB0] font-bold cursor-pointer">
-      {formattedTime}
-    </span>
+    <Link to={`/booking/${showTime.id}`}>
+      <span className="p-1 text-[#57FFB0] font-bold cursor-pointer">
+        {formattedTime}
+      </span>
+    </Link>
   );
 }

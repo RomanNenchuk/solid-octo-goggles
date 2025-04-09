@@ -22,7 +22,7 @@ export default function Header() {
           setIsNavigationMenuOpen={setIsNavigationMenuOpen}
         />
       </div>
-      <div className="mt-[75px]">
+      <div className="mt-[80px]">
         <Outlet />
       </div>
     </>
