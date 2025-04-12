@@ -13,10 +13,12 @@ export default function Sidebar({
 }: SidebarProps) {
   const sideBarRef = useRef<HTMLDivElement>(null);
 
+  const closeNavigationMenu = () => setIsNavigationMenuOpen(false);
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (sideBarRef?.current && !sideBarRef.current.contains(e.target as Node))
-        setIsNavigationMenuOpen(false);
+        closeNavigationMenu();
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -43,7 +45,7 @@ export default function Sidebar({
           setIsNavigationMenuOpen={setIsNavigationMenuOpen}
           className="absolute top-[12px] left-[12px]"
         />
-        <PageNavList />
+        <PageNavList closeNavigationMenu={closeNavigationMenu} />
       </div>
     </div>
   );
