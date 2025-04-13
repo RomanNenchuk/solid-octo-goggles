@@ -34,9 +34,6 @@ export default function CinemaHall() {
       const showTimeInfo = await fetchShowTimeInfo({
         id: showTimeId,
       });
-
-      // const hallInfo: Hall = { ...showTimeInfo, seats: [] };
-      // const showTimeInfo.seats = showTimeInfo.bookedSeats
       setHall(showTimeInfo);
       setLoading(false);
     }
@@ -58,9 +55,8 @@ export default function CinemaHall() {
   );
 
   return (
-    <>
+    <div className="flex-grow">
       <CinemaHallHeader hallName={hall.name} />
-
       {hall.seats?.length > 0 ? (
         <main className="w-full overflow-x-auto p-4">
           <div className="flex flex-col gap-4 min-w-[fit-content] p-1">
@@ -70,6 +66,6 @@ export default function CinemaHall() {
           </div>
         </main>
       ) : null}
-    </>
+    </div>
   );
 }

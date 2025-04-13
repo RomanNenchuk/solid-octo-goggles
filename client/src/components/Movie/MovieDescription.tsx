@@ -34,9 +34,6 @@ export default function MovieDescription() {
 
   if (loading || !movie) return <LoadingSpinner />;
 
-  const handleCardClick = () => console.log("a");
-  console.log(movie);
-
   return (
     <div
       className={`flex justify-around max-w-[1300px] gap-8 p-8 flex-col lg:flex-row lg:gap-8 relative mx-auto`}
@@ -44,7 +41,6 @@ export default function MovieDescription() {
       <MovieCardCover
         cover={movie.cover}
         name={movie.name}
-        onClick={handleCardClick}
         className="w-full h-[350px] sm:h-[370px] lg:w-[250px] overflow-hidden rounded-lg flex-shrink-0"
       />
       <div className="lg:max-w-[60%] flex flex-col gap-4">
@@ -52,8 +48,6 @@ export default function MovieDescription() {
           name={movie.name}
           genre={movie.genre}
           description={movie.description}
-          onClick={handleCardClick}
-          className=""
         />
       </div>
       {movie.showTimes?.length ? (

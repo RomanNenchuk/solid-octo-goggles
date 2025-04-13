@@ -9,19 +9,22 @@ import Home from "./pages/Home";
 import { SearchProvider } from "./contexts/SearchContext";
 import Booking from "./pages/Booking";
 import Movie from "./pages/Movie";
+import { BookingProvider } from "./contexts/BookingContext";
 
 function App() {
   return (
     <Router>
       <SearchProvider>
-        <Routes>
-          <Route element={<Header />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/bookings/:id" element={<Booking />} />
-            <Route path="/movies/:id" element={<Movie />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
+        <BookingProvider>
+          <Routes>
+            <Route element={<Header />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/bookings/:id" element={<Booking />} />
+              <Route path="/movies/:id" element={<Movie />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </BookingProvider>
       </SearchProvider>
     </Router>
   );

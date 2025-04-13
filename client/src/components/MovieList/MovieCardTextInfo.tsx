@@ -6,7 +6,7 @@ type MovieCardTextInfoProps = Pick<
 > & {
   description?: string;
   genre?: string;
-  onClick: VoidFunction;
+  onClick?: VoidFunction;
   className?: string;
 };
 

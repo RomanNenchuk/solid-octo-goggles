@@ -1,7 +1,7 @@
 import { MovieType } from "./MovieList";
 
 type MovieCardCoverProps = Pick<MovieType, "cover" | "name"> & {
-  onClick: VoidFunction;
+  onClick?: VoidFunction;
   className?: string;
 };
 
