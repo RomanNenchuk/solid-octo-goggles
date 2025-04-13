@@ -18,7 +18,7 @@ export default function ShowTimeLabel({ showTime }: ShowTimeLabelProps) {
   });
 
   return (
-    <Link to={`/bookings/${showTime.id}`}>
+    <Link to={`/bookings/${showTime.id}`} className="h-[fit-content]">
       <span className="p-1 text-[#57FFB0] font-bold cursor-pointer">
         {formattedTime}
       </span>

@@ -98,6 +98,14 @@ export async function getMovieDescription(req, res) {
   try {
     const movie = await prisma.movie.findUnique({
       where: { id },
+      select: {
+        id: true,
+        cover: true,
+        name: true,
+        description: true,
+        genre: true,
+        showTimes: true,
+      },
     });
     if (!movie) return res.status(404).json({ message: "Movie not found" });
 
