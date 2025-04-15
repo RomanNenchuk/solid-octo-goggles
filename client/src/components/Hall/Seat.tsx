@@ -1,24 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SeatType } from "./CinemaHall";
 import { useBooking } from "../../contexts/BookingContext";
 
 export default function Seat({ seat }: { seat: SeatType }) {
   const [isSelected, setIsSelected] = useState(false);
-  const { selectedSeats, setSelectedSeats } = useBooking();
+  const { setSelectedSeats } = useBooking();
 
   const handleSelectSeat = () => {
     if (seat.isOccupied) return;
     setIsSelected(prev => !prev);
     if (isSelected)
       setSelectedSeats(prevSeats =>
-        prevSeats.filter(selectedSeat => seat.id === selectedSeat.id)
+        prevSeats.filter(selectedSeat => seat.id !== selectedSeat.id)
       );
-    else setSelectedSeats(prevSeats => [...prevSeats, seat]);
+    else {
+      setSelectedSeats(prevSeats => [...prevSeats, seat]);
+    }
   };
-
-  useEffect(() => {
-    console.log(selectedSeats);
-  }, [selectedSeats]);
 
   return (
     <div

@@ -42,7 +42,7 @@ export async function getShowTimeInfo(req, res) {
       seats: showTime.hall.seats.map(seat => ({
         id: seat.id,
         row: seat.row,
-        col: seat.column,
+        column: seat.column,
         isOccupied: bookedSeatIds.has(seat.id),
       })),
     };
