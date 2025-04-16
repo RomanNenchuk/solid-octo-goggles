@@ -6,7 +6,7 @@ export async function fetchShowTimeInfo(
   showTimeId: Readonly<Params<string>>
 ): Promise<Hall> {
   const { id } = showTimeId;
-  const showTimeInfo = await makeRequest(`/movies/showTimes/${id}`);
+  const showTimeInfo = await makeRequest(`/showTimes/${id}`);
 
-  return showTimeInfo;
+  return showTimeInfo.data;
 }

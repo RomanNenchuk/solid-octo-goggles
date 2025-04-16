@@ -7,7 +7,7 @@ export default function BookedSeatList() {
     <>
       <h3>Обрані місця:</h3>
       {selectedSeats.map(seat => (
-        <BookedSeatItem seat={seat} />
+        <BookedSeatItem key={seat.id} seat={seat} />
       ))}
     </>
   );

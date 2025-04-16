@@ -1,5 +1,6 @@
 import express from "express";
 import movieRoutes from "./routes/movieRoutes.js";
+import showTimeRoutes from "./routes/showTimeRoutes.js";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -19,6 +20,8 @@ app.use(
 app.use(express.json());
 
 app.use("/api/movies", movieRoutes);
+
+app.use("/api/showTimes", showTimeRoutes);
 
 const expressServer = app.listen(BACKEND_PORT, () => {
   console.log(`Server is running on http://localhost:${BACKEND_PORT}`);

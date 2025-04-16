@@ -1,26 +1,64 @@
-import { MouseEvent, useEffect, useRef } from "react";
+import { FormEvent, MouseEvent, useEffect, useRef } from "react";
 import Modal from "../Modal/Modal";
 import ModalHeader from "../Modal/ModalHeader";
 import ModalInput from "../Modal/ModalInput";
+import { makeBooking } from "../../services/booking";
+import { useParams } from "react-router-dom";
+import { useBooking } from "../../contexts/BookingContext";
 
 type ConfirmationModalProps = {
   setIsConfirmationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: VoidFunction;
 };
 
 export default function ConfirmationModal({
   setIsConfirmationModalOpen,
+  refetch,
 }: ConfirmationModalProps) {
+  const { id } = useParams();
+  const { selectedSeats, setSelectedSeats } = useBooking();
   const confirmationFormRef = useRef<HTMLFormElement>(null);
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const handleCloseModal = (e: MouseEvent) => {
+  const handleCloseModal = () => {
+    setIsConfirmationModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const handleBackgroundClick = (e: MouseEvent) => {
     if (
       confirmationFormRef?.current &&
       !confirmationFormRef.current.contains(e.target as Node)
-    ) {
-      setIsConfirmationModalOpen(false);
+    )
+      handleCloseModal();
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!(id && userNameRef?.current && emailRef?.current && phoneRef?.current))
+      return;
+
+    try {
+      const userName = userNameRef.current.value;
+      const email = emailRef.current.value;
+      const phone = phoneRef.current.value;
+      const response = await makeBooking({
+        id,
+        userName,
+        email,
+        phone,
+        selectedSeats: selectedSeats.map(seat => seat.id),
+      });
+      if (response.status === 201) {
+        setSelectedSeats([]);
+        setIsConfirmationModalOpen(false);
+        refetch();
+        document.body.style.overflow = "auto";
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -33,9 +71,10 @@ export default function ConfirmationModal({
     <Modal>
       <div
         className="absolute z-1000 bg-[#000000b3] top-0 left-0 h-full w-full"
-        onClick={handleCloseModal}
+        onClick={handleBackgroundClick}
       >
         <form
+          onSubmit={handleSubmit}
           className="absolute absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2
           bg-[#fff] flex flex-col p-4 rounded-lg text-[#000] min-w-[350px]"
           ref={confirmationFormRef}
@@ -49,7 +88,7 @@ export default function ConfirmationModal({
           />
           <ModalInput
             type="tel"
-            label="Телефон"
+            label="+380123456789"
             placeholder="+380123456789"
             ref={phoneRef}
             pattern="^\+380\d{9}$"

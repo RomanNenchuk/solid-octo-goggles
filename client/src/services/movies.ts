@@ -17,7 +17,8 @@ export async function fetchMovies({
   query,
   page,
 }: FetchMoviesProps): Promise<FetchMoviesResponse> {
-  const movies = await makeRequest("/movies", { params: { query, page } });
+  const response = await makeRequest("/movies", { params: { query, page } });
+  const movies = response.data;
 
   return {
     movies,
@@ -30,8 +31,6 @@ export async function fetchMovie(
   movieId: Readonly<Params<string>>
 ): Promise<MovieType> {
   const { id } = movieId;
-  console.log(movieId);
-
-  const movie = await makeRequest(`/movies/${id}`);
-  return movie;
+  const response = await makeRequest(`/movies/${id}`);
+  return response.data;
 }

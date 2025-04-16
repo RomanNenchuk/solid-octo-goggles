@@ -3,7 +3,11 @@ import BookedSeatList from "./BookedSeatList";
 import ConfirmationModal from "./ConfirmationModal";
 import { useBooking } from "../../contexts/BookingContext";
 
-export default function BookingSidebar() {
+type BookingSidebarProps = {
+  refetch: VoidFunction;
+};
+
+export default function BookingSidebar({ refetch }: BookingSidebarProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const handleContinue = () => setIsConfirmationModalOpen(true);
   const { selectedSeats } = useBooking();
@@ -14,6 +18,7 @@ export default function BookingSidebar() {
       {isConfirmationModalOpen && (
         <ConfirmationModal
           setIsConfirmationModalOpen={setIsConfirmationModalOpen}
+          refetch={refetch}
         />
       )}
       <button onClick={handleContinue} disabled={!selectedSeats.length}>
