@@ -5,6 +5,7 @@ import ModalInput from "../Modal/ModalInput";
 import { makeBooking } from "../../services/booking";
 import { useParams } from "react-router-dom";
 import { useBooking } from "../../contexts/BookingContext";
+import { toast } from "react-toastify";
 
 type ConfirmationModalProps = {
   setIsConfirmationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -63,6 +64,7 @@ export default function ConfirmationModal({
       });
       if (response.status === 201) {
         clearSelection();
+        toast.success("Успішно заброньоване!");
         handleCloseModal();
         refetch();
       }
