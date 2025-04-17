@@ -14,7 +14,6 @@ export default function MovieCard({ movie, className }: MovieCardProps) {
   const handleCardClick = () => {
     if (movie.id) navigate(`/movies/${movie.id}`);
   };
-  console.log(movie);
 
   return (
     <div

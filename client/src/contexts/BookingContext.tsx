@@ -46,18 +46,21 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   async function getShowTimeInfo() {
     if (!showTimeId) return;
     try {
-      setIsLoading(true);
       const showTimeInfo = await fetchShowTimeInfo({ id: showTimeId });
       setHall(showTimeInfo);
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
+      throw error;
     }
   }
 
   useEffect(() => {
-    getShowTimeInfo();
+    try {
+      setIsLoading(true);
+      getShowTimeInfo();
+    } finally {
+      setIsLoading(false);
+    }
   }, [showTimeId]);
 
   if (isLoading || !hall) return <LoadingSpinner />;

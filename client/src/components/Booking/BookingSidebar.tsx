@@ -20,7 +20,7 @@ export default function BookingSidebar() {
         className="p-3 bg-[#c4b5fd] text-[#000] rounded-md hover:bg-[#333]
           transition-colors duration-200"
         onClick={handleContinue}
-        disabled={!hall.seats.find(seat => seat.isOccupied)}
+        disabled={!hall.seats.find(seat => seat.isSelected)}
       >
         Продовжити
       </button>
