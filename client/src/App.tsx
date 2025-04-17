@@ -15,16 +15,21 @@ function App() {
   return (
     <Router>
       <SearchProvider>
-        <BookingProvider>
-          <Routes>
-            <Route element={<Header />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/bookings/:id" element={<Booking />} />
-              <Route path="/movies/:id" element={<Movie />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-          </Routes>
-        </BookingProvider>
+        <Routes>
+          <Route element={<Header />}>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/bookings/:id"
+              element={
+                <BookingProvider>
+                  <Booking />
+                </BookingProvider>
+              }
+            />
+            <Route path="/movies/:id" element={<Movie />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
       </SearchProvider>
     </Router>
   );

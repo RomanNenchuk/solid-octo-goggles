@@ -1,16 +1,14 @@
-import { useParams } from "react-router-dom";
-import { fetchShowTimeInfo } from "../../services/showTimes";
-import LoadingSpinner from "../LoadingSpinner";
 import Row from "./Row";
 import CinemaHallHeader from "./CinemaHallHeader";
-import { useQuery } from "@tanstack/react-query";
 import BookingSidebar from "../Booking/BookingSidebar";
+import { useBooking } from "../../contexts/BookingContext";
 
 export type SeatType = {
   id: string;
   row: number;
   column: number;
   isOccupied: boolean;
+  isSelected?: boolean;
 };
 
 export type Hall = {
@@ -24,20 +22,7 @@ export type RowType = SeatType[];
 export const NUMBER_OF_COLUMNS = 10;
 
 export default function CinemaHall() {
-  const { id: showTimeId } = useParams();
-
-  const {
-    data: hall,
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["showTime", showTimeId],
-    enabled: !!showTimeId,
-    queryFn: () => fetchShowTimeInfo({ id: showTimeId }),
-  });
-
-  console.log(hall);
-  if (isLoading || !hall) return <LoadingSpinner />;
+  const { hall } = useBooking();
 
   const seatsByRow: any = hall.seats.reduce(
     (rows: RowType[], currentSeat, seatIndex) => {
@@ -52,7 +37,7 @@ export default function CinemaHall() {
   return (
     <div className="flex relative justify-between">
       <div className="flex-grow">
-        <CinemaHallHeader hallName={hall.name} />
+        <CinemaHallHeader />
         {hall.seats?.length > 0 ? (
           <main className="w-full overflow-x-auto p-4">
             <div className="flex flex-col gap-4 min-w-[fit-content] p-1">
@@ -63,7 +48,7 @@ export default function CinemaHall() {
           </main>
         ) : null}
       </div>
-      <BookingSidebar refetch={refetch} />
+      <BookingSidebar />
     </div>
   );
 }

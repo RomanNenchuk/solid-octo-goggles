@@ -8,19 +8,27 @@ import { useBooking } from "../../contexts/BookingContext";
 
 type ConfirmationModalProps = {
   setIsConfirmationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  refetch: VoidFunction;
 };
 
 export default function ConfirmationModal({
   setIsConfirmationModalOpen,
-  refetch,
 }: ConfirmationModalProps) {
   const { id } = useParams();
-  const { selectedSeats, setSelectedSeats } = useBooking();
+  const { hall, setHall, refetch } = useBooking();
   const confirmationFormRef = useRef<HTMLFormElement>(null);
   const userNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+
+  const clearSelection = () => {
+    setHall(prevInfo => ({
+      ...prevInfo,
+      seats: hall.seats.map(seat => ({
+        ...seat,
+        isOccupied: false,
+      })),
+    }));
+  };
 
   const handleCloseModal = () => {
     setIsConfirmationModalOpen(false);
@@ -49,13 +57,14 @@ export default function ConfirmationModal({
         userName,
         email,
         phone,
-        selectedSeats: selectedSeats.map(seat => seat.id),
+        selectedSeats: hall.seats
+          .filter(seat => seat.isSelected)
+          .map(seat => seat.id),
       });
       if (response.status === 201) {
-        setSelectedSeats([]);
-        setIsConfirmationModalOpen(false);
+        clearSelection();
+        handleCloseModal();
         refetch();
-        document.body.style.overflow = "auto";
       }
     } catch (error) {
       console.error(error);
@@ -70,12 +79,12 @@ export default function ConfirmationModal({
   return (
     <Modal>
       <div
-        className="absolute z-1000 bg-[#000000b3] top-0 left-0 h-full w-full"
+        className="fixed z-1000 bg-[#000000b3] top-0 left-0 h-full w-full"
         onClick={handleBackgroundClick}
       >
         <form
           onSubmit={handleSubmit}
-          className="absolute absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2
+          className="absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2
           bg-[#fff] flex flex-col p-4 rounded-lg text-[#000] min-w-[350px]"
           ref={confirmationFormRef}
         >

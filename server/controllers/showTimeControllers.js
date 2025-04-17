@@ -58,7 +58,6 @@ export async function makeBooking(req, res) {
   const showTimeId = req.params.id;
   const { userName, email, phone, selectedSeats } = req.body;
   try {
-    console.log(userName, email, phone, selectedSeats);
     let user = await prisma.user.findUnique({
       where: { email },
       select: { id: true },
