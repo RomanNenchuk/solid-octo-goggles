@@ -19,8 +19,6 @@ export default function MovieDescription() {
       try {
         setLoading(true);
         const movieInfo = await fetchMovie({ id: movieId });
-        console.log(movieInfo);
-
         setMovie(movieInfo);
       } catch (error) {
         console.error(error);

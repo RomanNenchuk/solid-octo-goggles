@@ -35,7 +35,7 @@ export default function CinemaHall() {
   );
 
   return (
-    <div className="flex relative justify-between">
+    <div className="flex flex-col gap-8 relative justify-between lg:gap-0 lg:flex-row">
       <div className="flex-grow">
         <CinemaHallHeader />
         {hall.seats?.length > 0 ? (

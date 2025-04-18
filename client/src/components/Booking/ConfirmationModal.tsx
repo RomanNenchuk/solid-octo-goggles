@@ -64,11 +64,12 @@ export default function ConfirmationModal({
       });
       if (response.status === 201) {
         clearSelection();
-        toast.success("Успішно заброньоване!");
+        toast.success("Успішно заброньовано!");
         handleCloseModal();
         refetch();
       }
     } catch (error) {
+      toast.error("На жаль, сталася помилка :(");
       console.error(error);
     }
   };

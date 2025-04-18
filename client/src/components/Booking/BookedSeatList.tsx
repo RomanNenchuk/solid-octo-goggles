@@ -19,7 +19,7 @@ export default function BookedSeatList() {
 
   return (
     <>
-      <h3 className="mb-4 text-lg">Квитки. Обрано {selectedSeats.length}</h3>
+      <h3 className="mb-4 text-lg">Квитки. Обрано: {selectedSeats.length}</h3>
       <ul className="flex flex-col gap-2 mb-auto max-h-[calc(100%-100px)] overflow-auto">
         {selectedSeats.map(seat => (
           <BookedSeatItem

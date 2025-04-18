@@ -42,7 +42,7 @@ export default function MovieList({
   return (
     <>
       <ul
-        className={`flex flex-wrap gap-y-8 justify-between p-[34px] lg:gap-x-8 ${className}`}
+        className={`flex flex-wrap gap-y-8 justify-between p-[15px] lg:p-[34px] lg:gap-x-8 ${className}`}
       >
         {movies.length > 0 ? (
           movies.map(movie => <MovieCard key={movie.id} movie={movie} />)
