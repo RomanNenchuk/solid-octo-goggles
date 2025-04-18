@@ -26,6 +26,11 @@ export async function getMovies(req, res) {
             startTime: true,
             hall: { select: { id: true, name: true, totalSeats: true } },
           },
+          where: {
+            startTime: {
+              gte: new Date(),
+            },
+          },
         },
       },
       where: whereCondition,
